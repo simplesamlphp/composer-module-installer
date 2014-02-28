@@ -96,3 +96,29 @@ repository.)
 
 See the [Composer Repository documentation](https://getcomposer.org/doc/05-repositories.md)
 for more information about adding your own custom repositories to Composer.
+
+
+Module names that contain uppercase letters
+-------------------------------------------
+
+New modules should only have lowercase letters in the module name, however a
+lot of existing module names contain uppercase letters. Since Composer package
+names should only contain lowercase letters, a mixed-case variant of the module
+name can be provided in the `ssp-mixedcase-module-name` extra data option:
+
+```json
+{
+    "name": "vendor/simplesamlphp-module-mymodule",
+    "description": "A description of the module 'MyModule'.",
+    "type": "simplesamlphp-module",
+    "extra": {
+        "ssp-mixedcase-module-name": "myModule"
+    },
+    "require": {
+        "simplesamlphp/composer-module-installer": "~1.0",
+    }
+}
+```
+
+Note that this is only meant for migration of existing modules. New modules
+should only use lowercase letters in the name.

@@ -24,6 +24,21 @@ class ModuleInstaller extends LibraryInstaller
             throw new \InvalidArgumentException('Unable to install module, module name cannot start with ".".');
         }
 
+	/* Composer packages are supposed to only contain lowercase letters, but historically many modules have had names in mixed case.
+	 * We must provide a way to handle those. Here we allow the module directory to be overridden with a mixed case name.
+	 */
+	$extraData = $package->getExtra();
+	if (isset($extraData['ssp-mixedcase-module-name'])) {
+		$mixedCaseModuleName = $extraData['ssp-mixedcase-module-name'];
+		if (!is_string($mixedCaseModuleName)) {
+			throw new \InvalidArgumentException('Unable to install module, "ssp-mixedcase-module-name" must be a string.');
+		}
+		if (mb_strtolower($mixedCaseModuleName, 'utf-8') !== $moduleDir) {
+			throw new \InvalidArgumentException('Unable to install module, "ssp-mixedcase-module-name" must match the package name except that it can contain uppercase letters.');
+		}
+		$moduleDir = $mixedCaseModuleName;
+	}
+
         return 'modules/' . $moduleDir;
     }
 
