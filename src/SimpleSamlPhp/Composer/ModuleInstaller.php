@@ -10,6 +10,15 @@ class ModuleInstaller extends LibraryInstaller
     /**
      * {@inheritDoc}
      */
+    public function getInstallPath(PackageInterface $package)
+    {
+        return $this->getPackageBasePath($package);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
     protected function getPackageBasePath(PackageInterface $package)
     {
         $name = $package->getPrettyName();
