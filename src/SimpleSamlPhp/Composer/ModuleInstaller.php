@@ -10,7 +10,7 @@ class ModuleInstaller extends LibraryInstaller
     /**
      * {@inheritDoc}
      */
-    public function getPackageBasePath(PackageInterface $package)
+    protected function getPackageBasePath(PackageInterface $package)
     {
         $name = $package->getPrettyName();
         if (!preg_match('@^.*/simplesamlphp-module-(.+)$@', $name, $matches)) {
