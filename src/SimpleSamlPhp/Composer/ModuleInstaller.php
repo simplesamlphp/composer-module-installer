@@ -21,6 +21,15 @@ class ModuleInstaller extends LibraryInstaller
      */
     protected function getPackageBasePath(PackageInterface $package)
     {
+        $ssp_path = '.';
+        $ssp_pack = $this->composer
+            ->getRepositoryManager()
+            ->getLocalRepository()
+            ->findPackage('simplesamlphp/simplesamlphp', '*');
+        if ($ssp_pack !== null) {
+            $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
+        }
+
         $name = $package->getPrettyName();
         if (!preg_match('@^.*/simplesamlphp-module-(.+)$@', $name, $matches)) {
             throw new \InvalidArgumentException('Unable to install module, package name must be on the form "VENDOR/simplesamlphp-module-MODULENAME".');
@@ -49,7 +58,7 @@ class ModuleInstaller extends LibraryInstaller
             $moduleDir = $mixedCaseModuleName;
         }
 
-        return 'modules/'.$moduleDir;
+        return $ssp_path.'/modules/'.$moduleDir;
     }
 
 
