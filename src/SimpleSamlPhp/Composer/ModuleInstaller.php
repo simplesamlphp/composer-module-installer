@@ -52,6 +52,9 @@ class ModuleInstaller extends LibraryInstaller
             if (!is_string($mixedCaseModuleName)) {
                 throw new \InvalidArgumentException('Unable to install module ' . $name .', "ssp-mixedcase-module-name" must be a string.');
             }
+            if (!extension_loaded('mbstring')) {
+                throw new \InvalidArgumentException('mbstring extension is required for mixed cased modules.');
+            }
             if (mb_strtolower($mixedCaseModuleName, 'utf-8') !== $moduleDir) {
                 throw new \InvalidArgumentException('Unable to install module ' . $name .', "ssp-mixedcase-module-name" must match the package name except that it can contain uppercase letters.');
             }
