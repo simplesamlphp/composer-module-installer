@@ -21,12 +21,18 @@ class ModuleInstaller extends LibraryInstaller
      */
     protected function getPackageBasePath(PackageInterface $package)
     {
-        $ssp_path = '.';
-        $ssp_pack = $this->composer
-            ->getRepositoryManager()
-            ->getLocalRepository()
-            ->findPackage('simplesamlphp/simplesamlphp', '*');
-        if ($ssp_pack !== null) {
+        if ($this->composer->getPackage()->getName() === 'simplesamlphp/simplesamlphp') {
+            $ssp_path = '.';
+        } else {
+            $ssp_pack = $this->composer
+                ->getRepositoryManager()
+                ->getLocalRepository()
+                ->findPackage('simplesamlphp/simplesamlphp', '*');
+
+            if ($ssp_pack === null) {
+                throw new \InvalidArgumentException('Unable to install module ' . $name .'. Couldn\'t find install path of simplesamlphp/simplesamlphp.');
+            }
+
             $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
         }
 
