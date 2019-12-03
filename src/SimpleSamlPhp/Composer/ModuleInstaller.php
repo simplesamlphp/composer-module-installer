@@ -16,6 +16,7 @@ class ModuleInstaller extends LibraryInstaller
         try {
             return parent::isInstalled($repo, $package);
         } catch (MissingSimpleSamlException $e) {
+            // if simplesamlphp isn't installed we can sure that this module also isn't installed
             return false;
         }
     }
