@@ -3,9 +3,19 @@ namespace SimpleSamlPhp\Composer;
 
 use Composer\Package\PackageInterface;
 use Composer\Installer\LibraryInstaller;
+use Composer\Repository\InstalledRepositoryInterface;
 
 class ModuleInstaller extends LibraryInstaller
 {
+    public function isInstalled(InstalledRepositoryInterface $repo, PackageInterface $package)
+    {
+        try {
+            return parent::isInstalled($repo, $package);
+        } catch (MissingSimpleSamlException $e) {
+            return false;
+        }
+    }
+
 
     /**
      * {@inheritDoc}
@@ -31,7 +41,7 @@ class ModuleInstaller extends LibraryInstaller
                 ->findPackage('simplesamlphp/simplesamlphp', '*');
 
             if ($ssp_pack === null) {
-                throw new \InvalidArgumentException('Unable to install module ' . $name .'. Couldn\'t find install path of simplesamlphp/simplesamlphp.');
+                throw new MissingSimpleSamlException('Unable to install module ' . $name .'. Couldn\'t find install path of simplesamlphp/simplesamlphp.');
             }
 
             $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
