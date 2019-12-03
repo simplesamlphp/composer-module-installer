@@ -21,6 +21,7 @@ class ModuleInstaller extends LibraryInstaller
      */
     protected function getPackageBasePath(PackageInterface $package)
     {
+        $name = $package->getPrettyName();
         if ($this->composer->getPackage()->getName() === 'simplesamlphp/simplesamlphp') {
             $ssp_path = '.';
         } else {
@@ -36,7 +37,6 @@ class ModuleInstaller extends LibraryInstaller
             $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
         }
 
-        $name = $package->getPrettyName();
         if (!preg_match('@^.*/simplesamlphp-module-(.+)$@', $name, $matches)) {
             throw new \InvalidArgumentException('Unable to install module ' . $name .', package name must be on the form "VENDOR/simplesamlphp-module-MODULENAME".');
         }
