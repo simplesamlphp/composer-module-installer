@@ -1,4 +1,5 @@
 <?php
+
 namespace SimpleSamlPhp\Composer;
 
 use Composer\Composer;

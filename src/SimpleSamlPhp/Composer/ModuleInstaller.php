@@ -1,4 +1,5 @@
 <?php
+
 namespace SimpleSamlPhp\Composer;
 
 use Composer\Package\PackageInterface;
@@ -7,6 +8,9 @@ use Composer\Repository\InstalledRepositoryInterface;
 
 class ModuleInstaller extends LibraryInstaller
 {
+    /**
+     * {@inheritDoc}
+     */
     public function isInstalled(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
         try {
@@ -15,7 +19,6 @@ class ModuleInstaller extends LibraryInstaller
             return false;
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -81,7 +84,7 @@ class ModuleInstaller extends LibraryInstaller
     /**
      * {@inheritDoc}
      */
-    public function supports($packageType)
+    public function supports(string $packageType)
     {
         return 'simplesamlphp-module' === $packageType;
     }
