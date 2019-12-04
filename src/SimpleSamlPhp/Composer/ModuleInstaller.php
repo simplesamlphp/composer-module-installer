@@ -85,7 +85,7 @@ class ModuleInstaller extends LibraryInstaller
     /**
      * {@inheritDoc}
      */
-    public function supports(string $packageType)
+    public function supports($packageType)
     {
         return 'simplesamlphp-module' === $packageType;
     }

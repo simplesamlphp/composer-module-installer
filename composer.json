@@ -10,7 +10,6 @@
         "class": "SimpleSamlPhp\\Composer\\ModuleInstallerPlugin"
     },
     "require": {
-        "php": "^7.0",
         "composer-plugin-api": "^1.0",
         "simplesamlphp/simplesamlphp": "*"
     }
