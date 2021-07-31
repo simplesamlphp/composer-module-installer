@@ -11,6 +11,12 @@ use function sprintf;
 
 class ModuleInstallerPlugin implements PluginInterface
 {
+    /** @var \SimpleSamlPhp\Composer\ModuleInstaller */
+    private ModuleInstaller $installer;
+
+    /** @var \Composer\IO\IOInterface */
+    private IOInterface $io;
+
     /**
      * Apply plugin modifications to Composer
      *
@@ -19,8 +25,9 @@ class ModuleInstallerPlugin implements PluginInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $installer = new ModuleInstaller($io, $composer);
-        $composer->getInstallationManager()->addInstaller($installer);
+        $this->io = $io;
+        $this->installer = new ModuleInstaller($io, $composer);
+        $composer->getInstallationManager()->addInstaller($this->installer);
     }
 
 
@@ -50,7 +57,7 @@ class ModuleInstallerPlugin implements PluginInterface
      */
     public function uninstall(Composer $composer, IOInterface $io)
     {
-        $installPath = $this->getPackageBasePath($package);
+        $installPath = $this->installer->getPackageBasePath($package);
 
         $io = $this->io;
         $outputStatus = function () use ($io, $installPath) {
