@@ -5,7 +5,6 @@ namespace SimpleSamlPhp\Composer;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-use React\Promise\PromiseInterface;
 
 use function file_exists;
 use function sprintf;
