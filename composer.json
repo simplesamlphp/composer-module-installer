@@ -4,10 +4,10 @@
     "license": "LGPL-2.1-only",
     "type": "composer-plugin",
     "autoload": {
-        "psr-0": {"SimpleSamlPhp\\Composer": "src/"}
+        "psr-0": {"SimpleSAML\\Composer": "src/"}
     },
     "extra": {
-        "class": "SimpleSamlPhp\\Composer\\ModuleInstallerPlugin"
+        "class": "SimpleSAML\\Composer\\ModuleInstallerPlugin"
     },
     "require": {
         "composer-plugin-api": "^1.1|^2.0",

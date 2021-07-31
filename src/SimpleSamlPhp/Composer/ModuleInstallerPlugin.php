@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleSamlPhp\Composer;
+namespace SimpleSAML\Composer;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
@@ -11,7 +11,7 @@ use function sprintf;
 
 class ModuleInstallerPlugin implements PluginInterface
 {
-    /** @var \SimpleSamlPhp\Composer\ModuleInstaller */
+    /** @var \SimpleSAML\Composer\ModuleInstaller */
     private ModuleInstaller $installer;
 
     /** @var \Composer\IO\IOInterface */
