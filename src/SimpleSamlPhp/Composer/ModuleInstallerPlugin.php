@@ -5,6 +5,10 @@ namespace SimpleSamlPhp\Composer;
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use React\Promise\PromiseInterface;
+
+use function file_exists;
+use function sprintf;
 
 class ModuleInstallerPlugin implements PluginInterface
 {
@@ -47,6 +51,16 @@ class ModuleInstallerPlugin implements PluginInterface
      */
     public function uninstall(Composer $composer, IOInterface $io)
     {
-        // Not implemented
+        $installPath = $this->getPackageBasePath($package);
+
+        $io = $this->io;
+        $outputStatus = function () use ($io, $installPath) {
+            $io->write(
+                sprintf('Deleting %s - %s', $installPath, !file_exists($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>')
+            );
+        };
+
+        // If not, execute the code right away as parent::uninstall executed synchronously (composer v1, or v2 without async)
+        $outputStatus();
     }
 }
