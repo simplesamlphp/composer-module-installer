@@ -1,13 +1,22 @@
 <?php
 
-namespace SimpleSamlPhp\Composer;
+namespace SimpleSAML\Composer;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 
+use function file_exists;
+use function sprintf;
+
 class ModuleInstallerPlugin implements PluginInterface
 {
+    /** @var \SimpleSAML\Composer\ModuleInstaller */
+    private ModuleInstaller $installer;
+
+    /** @var \Composer\IO\IOInterface */
+    private IOInterface $io;
+
     /**
      * Apply plugin modifications to Composer
      *
@@ -16,8 +25,9 @@ class ModuleInstallerPlugin implements PluginInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $installer = new ModuleInstaller($io, $composer);
-        $composer->getInstallationManager()->addInstaller($installer);
+        $this->io = $io;
+        $this->installer = new ModuleInstaller($io, $composer);
+        $composer->getInstallationManager()->addInstaller($this->installer);
     }
 
 
@@ -47,6 +57,16 @@ class ModuleInstallerPlugin implements PluginInterface
      */
     public function uninstall(Composer $composer, IOInterface $io)
     {
-        // Not implemented
+        $installPath = $this->installer->getPackageBasePath($package);
+
+        $io = $this->io;
+        $outputStatus = function () use ($io, $installPath) {
+            $io->write(
+                sprintf('Deleting %s - %s', $installPath, !file_exists($installPath) ? '<comment>deleted</comment>' : '<error>not deleted</error>')
+            );
+        };
+
+        // If not, execute the code right away as parent::uninstall executed synchronously (composer v1, or v2 without async)
+        $outputStatus();
     }
 }
