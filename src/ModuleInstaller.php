@@ -36,13 +36,10 @@ class ModuleInstaller extends LibraryInstaller
      */
     protected function getPackageBasePath(PackageInterface $package)
     {
-        $ssp_path = '.';
-        $ssp_pack = $this->composer
-            ->getRepositoryManager()
-            ->getLocalRepository()
-            ->findPackage('simplesamlphp/simplesamlphp', '*');
-        if ($ssp_pack !== null) {
-            $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
+        if($this->composer->getPackage()->getPrettyName() === 'simplesamlphp/simplesamlphp') {
+            $ssp_path = ".";
+        } else {
+            $ssp_path = $this->composer->getConfig()->get('vendor-dir').'/simplesamlphp/simplesamlphp';
         }
 
         $matches = [];
