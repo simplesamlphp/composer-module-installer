@@ -5,7 +5,7 @@
     "type": "composer-plugin",
     "autoload": {
         "psr-4": {
-            "SimpleSAML\\Composer": "src/"
+            "SimpleSAML\\Composer\\": "src/"
         }
     },
     "extra": {
