@@ -12,7 +12,9 @@
         "class": "SimpleSAML\\Composer\\ModuleInstallerPlugin"
     },
     "require": {
-        "composer-plugin-api": "^1.1|^2.0",
+        "php": "^7.4 || ^8.0",
+
+        "composer-plugin-api": "^1.1 || ^2.0",
         "simplesamlphp/simplesamlphp": "*"
     }
 }
