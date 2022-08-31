@@ -4,7 +4,9 @@
     "license": "LGPL-2.1-only",
     "type": "composer-plugin",
     "autoload": {
-        "psr-0": {"SimpleSAML\\Composer": "src/"}
+        "psr-4": {
+            "SimpleSAML\\Composer": "src/"
+        }
     },
     "extra": {
         "class": "SimpleSAML\\Composer\\ModuleInstallerPlugin"
