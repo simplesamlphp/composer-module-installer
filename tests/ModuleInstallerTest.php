@@ -33,7 +33,9 @@ class ModuleInstallerTest extends TestCase
     {
         $partialComposer = new PartialComposer();
         $partialComposer->setConfig(new Config());
-        $partialComposer->setRepositoryManager(new RepositoryManager(new NullIO(), new Config(), new HttpDownloader(new NullIO(), new Config())));
+        $partialComposer->setRepositoryManager(
+            new RepositoryManager(new NullIO(), new Config(), new HttpDownloader(new NullIO(), new Config()))
+        );
         $partialComposer->getRepositoryManager()->setLocalRepository(new InstalledArrayRepository());
         $this->moduleInstaller = new ModuleInstaller(new NullIO(), $partialComposer);
     }

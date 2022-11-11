@@ -46,6 +46,7 @@ class ModuleInstaller extends LibraryInstaller
         }
 
         $name = $package->getPrettyName();
+        $matches = [];
         if ($name === 'simplesamlphp/simplesamlphp-assets') {
             // Special case for SimpleSAMLphp's base assets
             return $ssp_path . '/public/base';
@@ -56,6 +57,7 @@ class ModuleInstaller extends LibraryInstaller
             ));
         }
 
+        Assert::count($matches, 2);
         $moduleType = $matches[1];
         $moduleDir = $matches[2];
 
@@ -77,8 +79,10 @@ class ModuleInstaller extends LibraryInstaller
         );
 
         /**
-         * Composer packages are supposed to only contain lowercase letters, but historically many modules have had names in mixed case.
-         * We must provide a way to handle those. Here we allow the module directory to be overridden with a mixed case name.
+         * Composer packages are supposed to only contain lowercase letters,
+         *  but historically many modules have had names in mixed case.
+         * We must provide a way to handle those. Here we allow the module directory
+         *  to be overridden with a mixed case name.
          */
         $extraData = $package->getExtra();
         if (isset($extraData[self::MIXED_CASE])) {
