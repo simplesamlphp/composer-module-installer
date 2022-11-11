@@ -15,6 +15,11 @@
         "php": "^7.4 || ^8.0",
 
         "composer-plugin-api": "^1.1 || ^2.0",
+        "simplesamlphp/assert": "^0.8.0",
         "simplesamlphp/simplesamlphp": "*"
+    },
+    "require-dev": {
+        "composer/composer": "^2.4",
+        "simplesamlphp/simplesamlphp-test-framework": "^1.2.1"
     }
 }
