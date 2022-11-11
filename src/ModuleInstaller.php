@@ -45,7 +45,10 @@ class ModuleInstaller extends LibraryInstaller
         }
 
         $name = $package->getPrettyName();
-        if (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
+        if ($name === 'simplesamlphp/simplesamlphp-assets') {
+            // Special case for SimpleSAMLphp's base assets
+            return $ssp_path . '/public/base';
+        } elseif (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to install module %s, package name must be on the form "VENDOR/simplesamlphp-%s-MODULENAME".',
                 $name,
