@@ -63,7 +63,7 @@ class ModuleInstaller extends LibraryInstaller
             $moduleDir = $mixedCaseModuleName;
         }
 
-        return $ssp_path.'/modules/'.$moduleDir;
+        return $ssp_path . '/modules/' . $moduleDir;
     }
 
 
