@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Composer;
 
+use SimpleSAML\Assert\Assert;
 use Composer\Package\PackageInterface;
 use Composer\Installer\LibraryInstaller;
 use InvalidArgumentException;
