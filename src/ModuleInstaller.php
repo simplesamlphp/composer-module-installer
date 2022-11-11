@@ -51,9 +51,8 @@ class ModuleInstaller extends LibraryInstaller
             return $ssp_path . '/public/base';
         } elseif (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
             throw new InvalidArgumentException(sprintf(
-                'Unable to install module %s, package name must be on the form "VENDOR/simplesamlphp-%s-MODULENAME".',
+                'Unable to install module %s, package name must be on the form "VENDOR/simplesamlphp-(module|assets)-MODULENAME".',
                 $name,
-                $matches[1]
             ));
         }
 
