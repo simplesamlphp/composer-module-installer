@@ -41,6 +41,14 @@ of your module. Your module will be installed in the `modules/<module name>`
 directory in the SimpleSAMLphp installation directory.
 
 
+Assets modules
+--------------
+
+Asset modules are a special kidn of module that will install pre-built assets in
+SimpleSAMLphp's `public/` directory. These modules follow a slightly different
+naming convention `simplesamlphp-assets-<module name>`
+
+
 Installing your custom module
 -----------------------------
 
