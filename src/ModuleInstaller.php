@@ -109,10 +109,8 @@ class ModuleInstaller extends LibraryInstaller
         switch ($moduleType) {
             case 'assets':
                 return $ssp_path . '/public/' . $moduleDir;
-                break;
             case 'module':
                 return $ssp_path . '/modules/' . $moduleDir;
-                break;
             default:
                 throw new InvalidArgumentException(sprintf('Unsupported type: %s', $moduleType));
         }
