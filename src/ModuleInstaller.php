@@ -57,7 +57,7 @@ class ModuleInstaller extends LibraryInstaller
             ));
         }
 
-        Assert::count($matches, 2);
+        Assert::count($matches, 3);
         $moduleType = $matches[1];
         $moduleDir = $matches[2];
 
