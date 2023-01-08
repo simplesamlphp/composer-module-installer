@@ -17,6 +17,7 @@ class ModuleInstallerPlugin implements PluginInterface
     /** @var \Composer\IO\IOInterface */
     private IOInterface $io;
 
+
     /**
      * Apply plugin modifications to Composer
      *

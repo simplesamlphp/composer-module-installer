@@ -2,16 +2,26 @@
 
 namespace SimpleSAML\Composer;
 
-use InvalidArgumentException;
+use SimpleSAML\Assert\Assert;
 use Composer\Package\PackageInterface;
 use Composer\Installer\LibraryInstaller;
+use InvalidArgumentException;
 
+use function in_array;
 use function is_string;
 use function mb_strtolower;
 use function preg_match;
+use function sprintf;
 
 class ModuleInstaller extends LibraryInstaller
 {
+    /** @var string */
+    public const MIXED_CASE = 'ssp-mixedcase-module-name';
+
+    /** @var array */
+    public const SUPPORTED = ['simplesamlphp-assets', 'simplesamlphp-module'];
+
+
     /**
      * {@inheritDoc}
      */
@@ -36,34 +46,74 @@ class ModuleInstaller extends LibraryInstaller
         }
 
         $name = $package->getPrettyName();
-        if (!preg_match('@^.*/simplesamlphp-module-(.+)$@', $name, $matches)) {
-            throw new InvalidArgumentException('Unable to install module ' . $name .', package name must be on the form "VENDOR/simplesamlphp-module-MODULENAME".');
+        $matches = [];
+        if ($name === 'simplesamlphp/simplesamlphp-assets') {
+            // Special case for SimpleSAMLphp's base assets
+            return $ssp_path . '/public/base';
+        } elseif (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
+            throw new InvalidArgumentException(sprintf(
+                'Unable to install module %s, package name must be on the form "VENDOR/simplesamlphp-(module|assets)-MODULENAME".',
+                $name,
+            ));
         }
-        $moduleDir = $matches[1];
 
-        if (!preg_match('@^[a-z0-9_.-]*$@', $moduleDir)) {
-            throw new InvalidArgumentException('Unable to install module ' . $name .', module name must only contain characters from a-z, 0-9, "_", "." and "-".');
-        }
-        if ($moduleDir[0] === '.') {
-            throw new InvalidArgumentException('Unable to install module ' . $name .', module name cannot start with ".".');
-        }
+        Assert::count($matches, 2);
+        $moduleType = $matches[1];
+        $moduleDir = $matches[2];
 
-        /* Composer packages are supposed to only contain lowercase letters, but historically many modules have had names in mixed case.
-         * We must provide a way to handle those. Here we allow the module directory to be overridden with a mixed case name.
+        Assert::regex(
+            $moduleDir,
+            '@^[a-z0-9_.-]*$@',
+            sprintf(
+                'Unable to install module %s, module name must only contain characters from a-z, 0-9, "_", "." and "-".',
+                $name
+            ),
+            InvalidArgumentException::class
+        );
+
+        Assert::notStartsWith(
+            $moduleDir,
+            '.',
+            sprintf('Unable to install module %s, module name cannot start with ".".', $name),
+            InvalidArgumentException::class
+        );
+
+        /**
+         * Composer packages are supposed to only contain lowercase letters,
+         *  but historically many modules have had names in mixed case.
+         * We must provide a way to handle those. Here we allow the module directory
+         *  to be overridden with a mixed case name.
          */
         $extraData = $package->getExtra();
-        if (isset($extraData['ssp-mixedcase-module-name'])) {
-            $mixedCaseModuleName = $extraData['ssp-mixedcase-module-name'];
-            if (!is_string($mixedCaseModuleName)) {
-                throw new InvalidArgumentException('Unable to install module ' . $name .', "ssp-mixedcase-module-name" must be a string.');
-            }
-            if (mb_strtolower($mixedCaseModuleName, 'utf-8') !== $moduleDir) {
-                throw new InvalidArgumentException('Unable to install module ' . $name .', "ssp-mixedcase-module-name" must match the package name except that it can contain uppercase letters.');
-            }
+        if (isset($extraData[self::MIXED_CASE])) {
+            $mixedCaseModuleName = $extraData[self::MIXED_CASE];
+            Assert::string(
+                $mixedCaseModuleName,
+                sprintf('Unable to install module %s, "%s" must be a string.', $name, self::MIXED_CASE),
+                InvalidArgumentException::class
+            );
+
+            Assert::same(
+                mb_strtolower($mixedCaseModuleName, 'utf-8'),
+                $moduleDir,
+                sprintf(
+                    'Unable to install module %s, "%s" must match the package name except that it can contain uppercase letters.',
+                    $name,
+                    self::MIXED_CASE
+                ),
+                InvalidArgumentException::class
+            );
             $moduleDir = $mixedCaseModuleName;
         }
 
-        return $ssp_path . '/modules/' . $moduleDir;
+        switch ($moduleType) {
+            case 'assets':
+                return $ssp_path . '/public/' . $moduleDir;
+            case 'module':
+                return $ssp_path . '/modules/' . $moduleDir;
+            default:
+                throw new InvalidArgumentException(sprintf('Unsupported type: %s', $moduleType));
+        }
     }
 
 
@@ -72,6 +122,6 @@ class ModuleInstaller extends LibraryInstaller
      */
     public function supports($packageType)
     {
-        return 'simplesamlphp-module' === $packageType;
+        return in_array($packageType, self::SUPPORTED);
     }
 }
