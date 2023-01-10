@@ -45,12 +45,9 @@ class ModuleInstaller extends LibraryInstaller
             $ssp_path = $this->composer->getInstallationManager()->getInstallPath($ssp_pack);
         }
 
-        $name = $package->getPrettyName();
         $matches = [];
-        if ($name === 'simplesamlphp/simplesamlphp-assets') {
-            // Special case for SimpleSAMLphp's base assets
-            return $ssp_path . '/public/base';
-        } elseif (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
+        $name = $package->getPrettyName();
+        if (!preg_match('@^.*/simplesamlphp-(module|assets)-(.+)$@', $name, $matches)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to install module %s, package name must be on the form "VENDOR/simplesamlphp-(module|assets)-MODULENAME".',
                 $name,
@@ -108,7 +105,7 @@ class ModuleInstaller extends LibraryInstaller
 
         switch ($moduleType) {
             case 'assets':
-                return $ssp_path . '/public/' . $moduleDir;
+                return $ssp_path . '/public/assets/' . $moduleDir;
             case 'module':
                 return $ssp_path . '/modules/' . $moduleDir;
             default:
