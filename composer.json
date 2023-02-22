@@ -11,6 +11,7 @@
     },
     "require": {
         "composer-plugin-api": "^1.1|^2.0",
+        "simplesamlphp/assert": "^0.0.13",
         "simplesamlphp/simplesamlphp": "*"
     }
 }
