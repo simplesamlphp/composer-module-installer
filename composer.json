@@ -20,5 +20,11 @@
     "require-dev": {
         "composer/composer": "^2.8.3",
         "simplesamlphp/simplesamlphp-test-framework": "^1.8.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        }
     }
 }
