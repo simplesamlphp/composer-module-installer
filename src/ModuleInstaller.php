@@ -2,10 +2,10 @@
 
 namespace SimpleSAML\Composer;
 
-use SimpleSAML\Assert\Assert;
 use Composer\Package\PackageInterface;
 use Composer\Installer\LibraryInstaller;
 use InvalidArgumentException;
+use SimpleSAML\Assert\Assert;
 
 use function in_array;
 use function is_string;

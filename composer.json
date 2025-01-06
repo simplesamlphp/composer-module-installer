@@ -13,13 +13,14 @@
     },
     "require": {
         "php": "^8.1",
+        "ext-mbstring": "*",
 
-        "composer-plugin-api": "^2.6",
-        "simplesamlphp/assert": "^1.6"
+        "composer/composer": "~2.8.3",
+        "composer-plugin-api": "~2.6.0",
+        "simplesamlphp/assert": "~1.6.0"
     },
     "require-dev": {
-        "composer/composer": "^2.8.3",
-        "simplesamlphp/simplesamlphp-test-framework": "^1.8.0"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.8.0"
     },
     "config": {
         "allow-plugins": {
