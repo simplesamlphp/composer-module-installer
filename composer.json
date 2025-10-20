@@ -12,15 +12,15 @@
         "class": "SimpleSAML\\Composer\\ModuleInstallerPlugin"
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-mbstring": "*",
 
-        "composer/composer": "~2.8.9",
+        "composer/composer": "~2.8.12",
         "composer-plugin-api": "~2.6.0",
-        "simplesamlphp/assert": "~1.8.1"
+        "simplesamlphp/assert": "~1.9.1"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "~1.9.2"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.10.2"
     },
     "config": {
         "allow-plugins": {
