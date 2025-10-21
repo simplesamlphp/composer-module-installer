@@ -20,7 +20,7 @@
         "simplesamlphp/assert": "~1.9.1"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "~1.10.2"
+        "simplesamlphp/simplesamlphp-test-framework": "~1.10.3"
     },
     "config": {
         "allow-plugins": {
