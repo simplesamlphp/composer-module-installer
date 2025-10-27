@@ -1,4 +1,9 @@
 {
   "symbol-whitelist": [
+    "Composer\\Composer",
+    "Composer\\Installer\\LibraryInstaller",
+    "Composer\\IO\\IOInterface",
+    "Composer\\Package\\PackageInterface",
+    "Composer\\Plugin\\PluginInterface"
   ]
 }
