@@ -9,8 +9,8 @@ comment:
   layout: "diff"
   behavior: once
   require_changes: true
-  require_base: no
-  require_head: yes
+  require_base: false
+  require_head: true
   branches: null
 github_checks:
   annotations: false
