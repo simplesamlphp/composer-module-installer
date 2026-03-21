@@ -22,6 +22,11 @@
         "composer/composer": "~2.9",
         "simplesamlphp/simplesamlphp-test-framework": "~1.11"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.8.0.x-dev"
+        }
+    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
