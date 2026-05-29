@@ -1,3 +1,7 @@
+1
+2
+3
+.phplint.cache
 .phpunit.result.cache
 composer.lock
 composer.phar
