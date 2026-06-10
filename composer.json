@@ -23,6 +23,7 @@
         "simplesamlphp/simplesamlphp-test-framework": "~1.11"
     },
     "extra": {
+        "class": "SimpleSAML\\Composer\\ModuleInstallerPlugin",
         "branch-alias": {
             "dev-master": "1.8.0.x-dev"
         }
