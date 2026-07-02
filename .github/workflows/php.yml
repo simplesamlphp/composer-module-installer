@@ -19,9 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.3', '8.4', '8.5', '8.6']
+        php-version: ['8.5', '8.6']
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@v1
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@v2
     secrets: inherit
     with:
       php-version: ${{ matrix.php-version }}
@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@v1
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@v2
     secrets: inherit
     with:
       enable_eslinter: false
@@ -47,7 +47,7 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['8.3', '8.4', '8.5', '8.6']
+        php-versions: ['8.5', '8.6']
 
     steps:
       - name: Setup PHP, with composer and extensions
@@ -109,7 +109,7 @@ jobs:
       fail-fast: true
       matrix:
         operating-system: [windows-latest]
-        php-versions: ['8.3', '8.4', '8.5', '8.6']
+        php-versions: ['8.5', '8.6']
 
     steps:
       - name: Setup PHP, with composer and extensions
@@ -218,7 +218,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           # Should be the lowest supported version
-          php-version: '8.3'
+          php-version: '8.5'
           extensions: ctype, date, dom, filter, hash, intl, mbstring, openssl, pcre, soap, spl, xml
           tools: composer
           coverage: none
