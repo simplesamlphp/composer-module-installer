@@ -21,7 +21,7 @@ jobs:
       matrix:
         php-version: ['8.5', '8.6']
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@v2
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_phplinter.yml@release-2.x
     secrets: inherit
     with:
       php-version: ${{ matrix.php-version }}
@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@v2
+    uses: simplesamlphp/simplesamlphp-test-framework/.github/workflows/reusable_linter.yml@release-2.x
     secrets: inherit
     with:
       enable_eslinter: false
@@ -165,7 +165,7 @@ jobs:
         with:
           # Should be the higest supported version, so we can use the newest tools
           php-version: '8.5'
-          tools: composer, composer-require-checker, composer-unused, phpcs
+          tools: composer, composer-dependency-analyser, phpcs
           extensions: ctype, date, dom, filter, hash, intl, mbstring, openssl, pcre, soap, spl, xml
           coverage: none
 
@@ -190,11 +190,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Check code for hard dependencies missing in composer.json
-        run: composer-require-checker check --config-file=tools/composer-require-checker.json composer.json
-
-      - name: Check code for unused dependencies in composer.json
-        run: composer-unused
+      - name: Check code for missing or unused dependencies
+        run: composer-dependency-analyser --verbose --config=tools/composer-dependency-analyser.php
 
       - name: PHP Code Sniffer
         run: vendor/bin/phpcs

@@ -16,10 +16,11 @@
         "ext-mbstring": "*",
 
         "composer-plugin-api": "~2.9",
+        "composer/composer": "~2.9",
         "simplesamlphp/assert": "~3.0"
     },
     "require-dev": {
-        "composer/composer": "~2.9",
+        "phpunit/phpunit": "^13.3",
         "simplesamlphp/simplesamlphp-test-framework": "~2.0"
     },
     "extra": {
